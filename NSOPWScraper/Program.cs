@@ -8,16 +8,23 @@ namespace NSOPWScraper
     {
         static void Main(string[] args)
         {
+            // Load HTML File
             HtmlDocument doc = new HtmlDocument();
             doc.Load("C:\\Users\\Zia\\Desktop\\NSOPW_Data\\a\\a_a.htm");
+
+            // Parse HTML for data
+
+            /*Name*/
             HtmlNodeCollection name = doc.DocumentNode.SelectNodes("//*[starts-with(@class,'name')]");
 
-            Console.WriteLine(name[0].ChildNodes[1].InnerText.Trim()); // Print name
+            Console.WriteLine(name[0].ChildNodes[1].InnerText.Trim());
 
+            /*Age*/
             HtmlNodeCollection age = doc.DocumentNode.SelectNodes("//*[starts-with(@class,'age')]");
 
-            Console.WriteLine(age[0].InnerText); // Print age
+            Console.WriteLine(age[0].InnerText);
 
+            /*Aliases*/
             HtmlNodeCollection aliases = doc.DocumentNode.SelectNodes("//*[starts-with(@class,'aliases')]");
 
             // Get list of all aliases
@@ -60,10 +67,10 @@ namespace NSOPWScraper
                 }
                 */
 
-
                 Console.WriteLine(offenderAlias); // Print alias
             }
 
+            /*Address*/
             HtmlNodeCollection addressInfo = doc.DocumentNode.SelectNodes("//*[starts-with(@class,'addr')]");
 
             string address = addressInfo[0].ChildNodes[1].InnerText;
@@ -85,6 +92,11 @@ namespace NSOPWScraper
             Console.WriteLine(tokens[2]); // city, state, zipcode
             Console.WriteLine(tokens[3]); // county
             Console.WriteLine(tokens[4]); // type of address
+
+            /*Image*/
+            HtmlNodeCollection img = doc.DocumentNode.SelectNodes("//*[starts-with(@class,'offender-thumbnail')]");
+
+            Console.WriteLine(img[1].Attributes[1].Value); // Print image URL
         }
     }
 }
